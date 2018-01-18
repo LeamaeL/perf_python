@@ -1,2 +1,4 @@
-env/
-data/
+env/*
+data/*
+__pycache__/*
+analysis/__pycache__/*
