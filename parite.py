@@ -13,11 +13,25 @@ def parse_arguments():
 
 def main():
     args = parse_arguments()
-    import pdb; pdb.set_trace()
-    if args.extension == 'xml':
-        c_an.launch_analysis(args.datafile)
-    elif args.extension == 'csv':
-        x_an.launch_analysis(args.datafile)
+    
+    try:
+        datafile = args.datafile
+        
+        if datafile == None:
+            raise Warning('You must indicate a datafile!')
+        else:
+            try:
+                if args.extension == 'xml':
+                    x_an.launch_analysis(datafile)
+                elif args.extension == 'csv':
+                    c_an.launch_analysis(datafile)
+            except FileNotFoundError as e:
+                print("Ow :( The file was not found. Here is the original message of the exception :", e)
+            finally:
+                print('#################### Analysis is over ####################')
+            
+    except Warning as e:
+        print(e)
 
 if __name__ == "__main__":
     main()
