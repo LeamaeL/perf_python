@@ -13,11 +13,11 @@ def parse_arguments():
 
 def main():
     args = parse_arguments()
-    datafile = args.datafile
+    import pdb; pdb.set_trace()
     if args.extension == 'xml':
-        c_an.launch_analysis(datafile)
+        c_an.launch_analysis(args.datafile)
     elif args.extension == 'csv':
-        x_an.launch_analysis(datafile)
+        x_an.launch_analysis(args.datafile)
 
 if __name__ == "__main__":
     main()
