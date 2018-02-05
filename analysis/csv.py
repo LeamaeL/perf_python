@@ -60,10 +60,14 @@ class SetOfParliamentMember:
             result[party] = subset
             
         return result
+    
+    # retourne le nombre total de parlementaire
+    def total_mps(self):
+        return(len(self.dataframe))
         
     
 
-def launch_analysis(data_file, by_party = False):
+def launch_analysis(data_file, by_party = False, info = False):
     sopm = SetOfParliamentMember('All MPs')
     sopm.data_from_csv(os.path.join("data", data_file))
     sopm.display_chart()
@@ -71,6 +75,9 @@ def launch_analysis(data_file, by_party = False):
     if by_party:
         for party, s in sopm.split_by_political_party().items():
             s.display_chart()
+    
+    if info:
+        print(sopm.total_mps())
     
 
 if __name__ == "__main__":
