@@ -2,8 +2,10 @@
 # coding: utf-8
 
 import os
-import pandas as pd
-import logging as lg
+import pandas               as pd
+import logging              as lg
+import numpy                as np
+import matplotlib.pyplot    as plt
 
 class SetOfParliamentMember:
     def __init__(self, name):
@@ -17,9 +19,25 @@ class SetOfParliamentMember:
     def dat_from_dataframe(self, dataframe):
         self.dataframe = dataframe
         
-    # diagramme circulaire à venir    
+    # diagramme circulaire    
     def display_chart(self):
-        pass
+        data = self.dataframe
+        female_mps = data[data.sexe == "F"]
+        male_mps = data[data.sexe == "H"]
+        
+        counts = [len(female_mps), len(male_mps)]
+        counts = np.array(counts)
+        nb_mps = counts.sum()
+        proportions = counts / nb_mps
+        
+        labels = ["Female ({})".format(counts[0]), "Male ({})".format(counts[1])]
+        
+        fig, ax = plt.subplots()
+        ax.axis("equal")
+        ax.pie(proportions, labels = labels, autopct="%1.1f pourcents")
+        plt.title("{} ({} MPs)".format(self.name, nb_mps))
+        plt.show()
+        
     
     def split_by_political_party(self):
         result = {}  # le résultat sera un dictionnaire
